@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cumk2d6fex8ja"]
+[gd_scene load_steps=14 format=3 uid="uid://cumk2d6fex8ja"]
 
 [ext_resource type="Script" path="res://slime.gd" id="1_7csit"]
 [ext_resource type="Texture2D" uid="uid://ci6s1xhs26ird" path="res://assets/slimes/Green_Slime/Walk.png" id="2_1w1re"]
+[ext_resource type="Script" path="res://Slime_Hurtbox.gd" id="3_e1rr7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v8roo"]
 atlas = ExtResource("2_1w1re")
@@ -84,6 +85,18 @@ frame = 6
 frame_progress = 0.820739
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -16)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rp3l3")
+
+[node name="Slime_Hurtbox" type="Area2D" parent="."]
+script = ExtResource("3_e1rr7")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Slime_Hurtbox"]
+position = Vector2(0, -15)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rp3l3")
+debug_color = Color(0.733333, 0.470588, 0, 0.419608)
+
+[connection signal="area_entered" from="Slime_Hurtbox" to="." method="_on_slime_hurtbox_area_entered"]

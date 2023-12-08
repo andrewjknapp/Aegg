@@ -21,8 +21,8 @@ func _ready():
 
 	print($CollisionShape2D.scale)
 	#$Anima$AnimatedSprite2D.scaletedSprite2D.transform["0"] = Vector2(2, -64)
-	$AnimatedSprite2D.scale = Vector2(size, size)
-	$CollisionShape2D.scale = Vector2(size, size)
+	scale = Vector2(size, size)
+
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -57,3 +57,18 @@ func _physics_process(delta):
 		#velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+	
+
+
+
+
+
+
+
+func _on_slime_hurtbox_area_entered(area):
+	if area.name == "Slime_Hurtbox":
+		return
+	
+	if area.name == "Spear":
+		queue_free()
+

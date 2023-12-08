@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://c80rroxhb6d8i"]
+[gd_scene load_steps=77 format=3 uid="uid://c80rroxhb6d8i"]
 
 [ext_resource type="Script" path="res://aegg.gd" id="1_kb20b"]
 [ext_resource type="Texture2D" uid="uid://cs4qmlu1blbkl" path="res://assets/craftpix-net-589520-free-warrior-pixel-art-sprite-sheets/Warrior_3/Dead.png" id="1_qvvv0"]
@@ -266,7 +266,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -275,10 +275,35 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-28, 51.5)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Spear/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Spear/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 65)]
+}
 
 [sub_resource type="Animation" id="Animation_pqj4f"]
 resource_name = "attack_light"
 length = 0.4
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -306,14 +331,50 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
+"update": 1,
 "values": [Vector2(-28, 51.5), Vector2(-7, 51.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Spear/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Spear/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 65), Vector2(50, 65), Vector2(0, 65)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Spear/CollisionShape2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_8pq1g"]
@@ -375,7 +436,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -416,7 +477,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -457,7 +518,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -498,7 +559,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CollisionShape2D:position")
+tracks/2/path = NodePath("../Body:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -653,12 +714,17 @@ graph_offset = Vector2(-36, -25.931)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xumib"]
 size = Vector2(32, 85)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kt2o0"]
+radius = 8.0
+height = 78.0
+
 [node name="Aegg" type="CharacterBody2D"]
 collision_mask = 3
 script = ExtResource("1_kb20b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 7)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_l3qce")
 animation = &"walk"
@@ -681,7 +747,19 @@ libraries = {
 "": SubResource("AnimationLibrary_p5b45")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(-28, 51.5)
 shape = SubResource("RectangleShape2D_xumib")
 debug_color = Color(0.67451, 0.505882, 0.0941176, 0.419608)
+
+[node name="Spear" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spear"]
+visible = false
+position = Vector2(0, 65)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_kt2o0")
+disabled = true
+debug_color = Color(1, 0, 0, 0.419608)
+
+[connection signal="area_entered" from="Spear" to="." method="_on_spear_area_entered"]
