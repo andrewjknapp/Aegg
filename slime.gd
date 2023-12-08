@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-var SPEED = 100.0
+var SPEED = (randi() % 20) + 80
 const JUMP_VELOCITY = -200.0
 
 var size = (randi() % 4 + 1)
 
-
+var health = 2 * size
 
 var direction = 1
 
@@ -57,18 +57,19 @@ func _physics_process(delta):
 		#velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	
-
-
-
-
-
-
 
 func _on_slime_hurtbox_area_entered(area):
-	if area.name == "Slime_Hurtbox":
-		return
-	
+
 	if area.name == "Spear":
+		recoil_on_hit()
+		##queue_free()
+
+func recoil_on_hit():
+	if health == 0:
 		queue_free()
+	direction *= -1
+	SPEED += 20
+	health -= 1
+	#SPEED = 0
+	
 
