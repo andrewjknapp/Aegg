@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://cumk2d6fex8ja"]
+
+[ext_resource type="Script" path="res://slime.gd" id="1_7csit"]
+[ext_resource type="Texture2D" uid="uid://ci6s1xhs26ird" path="res://assets/slimes/Green_Slime/Walk.png" id="2_1w1re"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8roo"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(0, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2bua"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(128, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqlje"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(256, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dayug"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(384, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kpxh"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(512, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mr8h"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(640, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0umwy"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(768, 90, 128, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htw87"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(896, 90, 128, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mcrkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8roo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2bua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqlje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dayug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kpxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mr8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0umwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htw87")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rp3l3"]
+radius = 15.0
+height = 40.0
+
+[node name="Slime" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_7csit")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -19)
+sprite_frames = SubResource("SpriteFrames_mcrkd")
+animation = &"walk"
+frame = 6
+frame_progress = 0.820739
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rp3l3")

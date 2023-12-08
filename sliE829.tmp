@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cumk2d6fex8ja"]
+
+[ext_resource type="Script" path="res://slime.gd" id="1_7csit"]
+[ext_resource type="Texture2D" uid="uid://ci6s1xhs26ird" path="res://assets/slimes/Green_Slime/Walk.png" id="2_1w1re"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55epd"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3khqc"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb2hp"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phrcl"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhdh7"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wam2e"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxqdf"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wo6gx"]
+atlas = ExtResource("2_1w1re")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mcrkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55epd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3khqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb2hp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phrcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhdh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wam2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxqdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo6gx")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jw7e0"]
+radius = 20.025
+
+[node name="Slime" type="CharacterBody2D"]
+script = ExtResource("1_7csit")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, -64)
+sprite_frames = SubResource("SpriteFrames_mcrkd")
+animation = &"walk"
+frame = 7
+frame_progress = 0.826233
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19)
+shape = SubResource("CircleShape2D_jw7e0")

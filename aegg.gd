@@ -1,41 +1,76 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-@export var speed = 400 # How fast the player will move (pixels/sec).
-var screen_size # Size of the game window.
+@onready var animation_tree: AnimationTree = $AnimatedSprite2D/AnimationTree
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	screen_size = get_viewport_rect().size
-	pass # Replace with function body.
+var JUMP_HEIGHT : float = 100
+var JUMP_TIME_TO_PEAK : float = 0.4
+var JUMP_TIME_TO_DESCENT : float = 0.3
 
+@onready var jump_velocity : float = ((2.0 * JUMP_HEIGHT) / JUMP_TIME_TO_PEAK) * -1
+@onready var jump_gravity : float = ((-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_PEAK * JUMP_TIME_TO_PEAK)) * -1
+@onready var fall_gravity : float = ((-2.0 * JUMP_HEIGHT) / (JUMP_TIME_TO_DESCENT * JUMP_TIME_TO_DESCENT)) * -1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+const SPEED = 300.0
+const RUN_MODIFIER = 1.8
+const JUMP_VELOCITY = -500.0
+var lastVelocity: Vector2
+
+func get_gravity() -> float:
+	return jump_gravity if velocity.y < 0 else fall_gravity
+
+func jump():
+	return jump_velocity
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 func _process(delta):
-	var velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("down"):
-		velocity.y += 1
-	if (Input.is_action_pressed("jump")):
-		velocity.y -= 1
+	update_animation_parameters()
 
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play()
-	else:
-		$AnimatedSprite2D.stop()
 		
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+func _physics_process(delta):
+	velocity.y += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump()
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_axis("move_left", "move_right")
 	
-	if velocity.x != 0:
-		$AnimatedSprite2D.animation = "walk"
-		$AnimatedSprite2D.flip_v = false
-		# See the note below about boolean assignment.
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-	elif velocity.y != 0:
-		$AnimatedSprite2D.animation = "jump"
+	var characterSpeed = SPEED if !Input.is_action_pressed("run") else SPEED * RUN_MODIFIER
+	if direction:
+		velocity.x = direction * characterSpeed
 	else:
-		$AnimatedSprite2D.animation = "idle"
+		velocity.x = move_toward(velocity.x, 0, characterSpeed)
+
+	move_and_slide()
+
+
+
+func update_animation_parameters():
+	animation_tree["parameters/conditions/is_attacking_light"] = false
+	animation_tree["parameters/conditions/is_jumping"] = false
+	animation_tree["parameters/conditions/is_idling"] = false
+	animation_tree["parameters/conditions/is_walking"] = false
+	animation_tree["parameters/conditions/is_running"] = false
+	
+	if velocity == Vector2.ZERO:
+		animation_tree["parameters/conditions/is_idling"] = true
+
+	elif is_on_floor() && velocity.x != 0:
+		animation_tree["parameters/conditions/is_idling"] = false
+		
+		animation_tree["parameters/conditions/is_running"] = Input.is_action_pressed("run")
+		animation_tree["parameters/conditions/is_walking"] = !Input.is_action_pressed("run")
+		
+	if Input.is_action_just_pressed("attack_light"):
+		animation_tree["parameters/conditions/is_attacking_light"] = true
+		
+	if !is_on_floor():
+		animation_tree["parameters/conditions/is_jumping"] = true
+		
+	if velocity.x != 0:
+		$AnimatedSprite2D.flip_h = velocity.x < 0
+		
