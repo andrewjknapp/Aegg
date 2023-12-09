@@ -273,7 +273,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-28, 51.5)]
+"values": [Vector2(-6.325, 60)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -443,7 +443,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-7, 51.5)]
+"values": [Vector2(-7, 60)]
 }
 
 [sub_resource type="Animation" id="Animation_vog8w"]
@@ -525,7 +525,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-7, 51.5)]
+"values": [Vector2(-7, 60)]
 }
 
 [sub_resource type="Animation" id="Animation_10fj3"]
@@ -566,7 +566,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-7, 51.5)]
+"values": [Vector2(-7, 60)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p5b45"]
@@ -711,8 +711,9 @@ states/walk/position = Vector2(167, 89)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_ob4h0"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_pldsf"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_eq28h"), "dead", "End", SubResource("AnimationNodeStateMachineTransition_nowcy"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_0u7n3"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_71xe5"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_4it11"), "idle", "attack_light", SubResource("AnimationNodeStateMachineTransition_krdd8"), "attack_light", "idle", SubResource("AnimationNodeStateMachineTransition_ilqig"), "walk", "run", SubResource("AnimationNodeStateMachineTransition_nsgmw"), "run", "walk", SubResource("AnimationNodeStateMachineTransition_colf1"), "walk", "attack_light", SubResource("AnimationNodeStateMachineTransition_n2iwk"), "run", "attack_light", SubResource("AnimationNodeStateMachineTransition_ipnau"), "attack_light", "run", SubResource("AnimationNodeStateMachineTransition_bpc42"), "attack_light", "walk", SubResource("AnimationNodeStateMachineTransition_pff8j"), "jump", "idle", SubResource("AnimationNodeStateMachineTransition_ikh3m"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_6lgk4"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_12fwd"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_xu3i3"), "jump", "walk", SubResource("AnimationNodeStateMachineTransition_s0xlj"), "jump", "run", SubResource("AnimationNodeStateMachineTransition_1t6m7"), "jump", "attack_light", SubResource("AnimationNodeStateMachineTransition_2sv17"), "attack_light", "jump", SubResource("AnimationNodeStateMachineTransition_j7r6w")]
 graph_offset = Vector2(-36, -25.931)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xumib"]
-size = Vector2(32, 85)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7gk2"]
+radius = 19.325
+height = 84.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kt2o0"]
 radius = 8.0
@@ -748,8 +749,8 @@ libraries = {
 }
 
 [node name="Body" type="CollisionShape2D" parent="."]
-position = Vector2(-28, 51.5)
-shape = SubResource("RectangleShape2D_xumib")
+position = Vector2(-6.325, 60)
+shape = SubResource("CapsuleShape2D_s7gk2")
 debug_color = Color(0.67451, 0.505882, 0.0941176, 0.419608)
 
 [node name="Spear" type="Area2D" parent="."]
