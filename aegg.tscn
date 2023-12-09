@@ -139,6 +139,11 @@ animations = [{
 "name": &"attack_light",
 "speed": 10.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"block",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wttxc")

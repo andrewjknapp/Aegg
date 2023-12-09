@@ -549,22 +549,10 @@ shader = ExtResource("4_hwmpk")
 [node name="Aegg" parent="." instance=ExtResource("2_a234k")]
 position = Vector2(573, 380)
 
-[node name="Camera2D" type="Camera2D" parent="Aegg"]
-position = Vector2(7, -43)
-position_smoothing_enabled = true
-position_smoothing_speed = 1.0
-
-[node name="Slime" parent="." instance=ExtResource("3_ubovh")]
-position = Vector2(1021, 41)
-
-[node name="Slime2" parent="." instance=ExtResource("3_ubovh")]
-position = Vector2(929, 47)
-
-[node name="Slime3" parent="." instance=ExtResource("3_ubovh")]
-position = Vector2(59, 43)
-
-[node name="Slime4" parent="." instance=ExtResource("3_ubovh")]
-position = Vector2(162, 45)
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Aegg"]
+remote_path = NodePath("../../Camera2D")
+update_rotation = false
+update_scale = false
 
 [node name="Oak Woods" type="TileMap" parent="."]
 scale = Vector2(2, 2)
@@ -574,16 +562,22 @@ layer_0/tile_data = PackedInt32Array(786432, 393217, 0, 786433, 393217, 0, 78643
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Layer 0" type="Sprite2D" parent="ParallaxBackground"]
+[node name="ParallaxLayer0" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1154.55, 0)
+
+[node name="Layer 0" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer0"]
+texture_filter = 1
+texture_repeat = 2
 material = SubResource("ShaderMaterial_yj00s")
 position = Vector2(577.5, 325)
 scale = Vector2(3.61562, 3.57778)
 texture = ExtResource("4_mso8m")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1151, 0)
 
-[node name="Layer 1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Layer 1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
 material = SubResource("ShaderMaterial_4fsdy")
 position = Vector2(-2, 2)
 scale = Vector2(3.62188, 3.64444)
@@ -592,6 +586,7 @@ centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(1068.39, 0)
 
 [node name="Layer 2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
 texture_filter = 2
@@ -600,3 +595,14 @@ position = Vector2(-3, -3)
 scale = Vector2(3.625, 3.63333)
 texture = ExtResource("6_p6kfb")
 centered = false
+
+[node name="Slime" parent="." instance=ExtResource("3_ubovh")]
+position = Vector2(266, 103)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(573, 380)
+limit_left = -20
+limit_top = 0
+limit_bottom = 648
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
